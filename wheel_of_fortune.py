@@ -11,7 +11,7 @@ import random
 fileObject = open("words.txt", "r")
 lines = fileObject.readlines()
 words = [line[:-1] for line in lines]
-#print(words)
+
 
 
 def intro():
@@ -32,21 +32,30 @@ long_words = []
 for word in words:
     if len(word) == 4 or len(word) == 5:
         short_words.append(word)
-
+        # return short_words
     elif len(word) == 6 or len(word) == 7:
         medium_words.append(word)
-
+        # return medium_words
     elif len(word) >= 8:
         long_words.append(word)
-
+        # return long_words
     else: 
         pass
 
-# class Game:
-    # def choose_difficulty():
-    #     difficulty_choice = [easy, medium, hard]
-    #     input()
-    #     return choice
+def difficulty_choice():
+    user_choice = input("Choose a difficutly:  ENTER  1 for Easy, 2 for Normal, or 3 for Challenging:  ")
+    return user_choice
+
+def game_mode_pick(difficulty_choice):
+    if difficulty_choice == "1":
+        return short_words
+    elif difficulty_choice == "2":
+        return medium_words
+    elif difficulty_choice == "3":
+        return long_words
+
+    else: 
+        input("Choose a difficutly:  ENTER  1 for Easy, 2 for Normal, or 3 for Challenging:  ")
 
 def pick_a_word():
         word_bank = []
@@ -61,40 +70,19 @@ def pick_mystery_word():
 def split(word):
     return list(word)
 
+choice = difficulty_choice()
+
 mystery_word = pick_mystery_word()
+
+intro
 
 print(mystery_word)
 pick_a_word()
 print(split(mystery_word))
-# class Player:
-#     def round():
-#         pass
-#     def guess():
-#         guesses = ("8")
-#         while guesses < 8:
-#         # while answer != True: #for max 8 guesses
-#             if guess == correct_letter:
-#         #         print()#display blank spaces other than correct letter guessed and - 1 guess
-#             elif guess != correct_letter:
-#         #         print("Wrong. Guess Again") #ask for input and - one guess
-#             elif guess == repeat_guess:
-#         #         print("Letter guessed. Go again") and - one guess
-#             elif guess == too_many_letters:
-#         #         print("Too many letters") and - one guess
-#         else:
-#         #         print("Maximum guesses exceded. Sorry, try again.") 
 
-# def win_or_lose():
-#     reveal_the_answer
-#     input("do you want to play again")
-#     #if yes run new game
 
-    
-# def wheel_of_fortune():
-#     intro()
-#     Game.pick_a_word()
 
-# wheel_of_fortune()
+
 
 
 
