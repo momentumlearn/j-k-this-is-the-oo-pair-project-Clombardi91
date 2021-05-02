@@ -12,6 +12,9 @@ fileObject = open("words.txt", "r")
 lines = fileObject.readlines()
 words = [line[:-1] for line in lines]
 
+short_words = []
+medium_words = []
+long_words = []
 
 
 def intro():
@@ -25,9 +28,6 @@ def intro():
     print(line)
 
 
-short_words = []
-medium_words = []
-long_words = []
 
 for word in words:
     if len(word) == 4 or len(word) == 5:
@@ -65,20 +65,22 @@ def pick_a_word():
 
 def pick_mystery_word():
         word_bank = medium_words
-        return random.choice(word_bank)
+        return random.choice(word_bank).lower()
 
 def split(word):
     return list(word)
 
+
+intro()
+mystery_word = pick_mystery_word()
 choice = difficulty_choice()
 
-mystery_word = pick_mystery_word()
-
-intro
 
 print(mystery_word)
 pick_a_word()
 print(split(mystery_word))
+ 
+
 
 
 
