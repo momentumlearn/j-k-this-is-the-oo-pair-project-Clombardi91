@@ -8,7 +8,7 @@ short_words = []
 medium_words = []
 long_words = []
 
-#typetypetype
+
 
 def intro():
     print()
@@ -20,10 +20,6 @@ def intro():
             Good luck and have fun!\n"""
     print(line)
 
-def game_prompt():
-    answer = input("Would you like to play? yes or no?   ")
-    return answer
-
 
 def difficulty_choice():
     user_choice = input("Choose a difficutly:  ENTER  1 for Easy, 2 for Normal, or 3 for Challenging:  ")
@@ -32,13 +28,13 @@ def difficulty_choice():
 for word in words:
     if len(word) == 4 or len(word) == 5:
         short_words.append(word)
-        # return short_words
+        
     elif len(word) == 6 or len(word) == 7:
         medium_words.append(word)
-        # return medium_words
+        
     elif len(word) >= 8:
         long_words.append(word)
-        # return long_words
+        
     else: 
         pass
 
@@ -56,7 +52,7 @@ def game_mode_pick(difficulty_choice):
 def pick_a_word():
     word = [difficulty_choice]
     print(len(word))
-    #return word.lower()
+    
 
 def pick_mystery_word(difficulty):
     word_bank = game_mode_pick(difficulty)
@@ -75,10 +71,11 @@ def play(word):
     print(word_completion)
     print("\n")
     while not guessed and tries > 0:
-        guess = input("Please guess a letter: ").lower()
+        guess = input("You guessed: ").lower()
+
         if len(guess) == 1 and guess.isalpha():
            if guess in guessed_letters:
-               print("You already guessed the letter", guess)
+               print("You have already guessed the letter", guess)
            elif guess not in word:
                print(guess, "is not in the word.")
                tries -= 1
@@ -93,6 +90,7 @@ def play(word):
                word_completion = "".join(word_as_list)
                if "_" not in word_completion:
                    guessed = True
+
         elif len(guess) == len(word) and guess.alpha():
             if guess in guessed_words:
                 print("You already guessed", guess)
@@ -104,58 +102,45 @@ def play(word):
                 guessed = True
                 word_completion = word
 
-
         else:
-            print("Please enter a single letter")
-        print(f' You have {tries} left')
+            print("Please guess a single letter")
+
+
+        print(f' You have {tries} tries left')
         print(word_completion)
         print("\n")
     if guessed:
         print("You are the winner of this episode of Wheel of Fortune!")
-        # print("Would you like to play again? yes or no?  ")
+        print("")
+        pass
     else:
         print("Sorry, you ran out of tries. The word was " + word + ". Better luck next time.")
-        # input("Would you like to play again? yes or no?  ")
+        print()
+        pass
 
-
+#########################################################################################################
 
 def main():
+    intro()
+    choice = difficulty_choice()
+    mystery_word = pick_mystery_word(choice).lower()
     word = mystery_word
-    print(mystery_word)
+    # print(mystery_word)
     play(mystery_word)
-    pick_a_word()
-    pick_mystery_word(game_mode_pick(difficulty_choice))
-    # while input("Would you like to play again? yes or no?  ").lower() == "yes":
-    #     word = mystery_word
-    #     play(word)
+    
 
-############################################################################################
-        
-
-intro()
-
-
-
-choice = difficulty_choice()
-
-mystery_word = pick_mystery_word(choice).lower()
+def play_the_game():
+    while True:
+        print("")
+        yes_no = input("Are you ready to play WHEEL OF FORTUNE?    yes or no?       ")
+        affirm = yes_no.lower()
+        if affirm == "yes":
+            main()
+        elif affirm == "no":    
+            print("Goodbye, have a goood day!")
+            break
+        else: 
+            continue
 
 
-while True:
-    answer = input("Would you like to play the game?   ")
-    if answer == 'yes':
-        main()
-    elif answer == 'no':
-        print("Well, wasn't that fun while it lasted?")
-        break
-    else:
-        print("Please only print yes or no.")
-# game_prompt()
-# if "yes":
-#     main()
-# else:
-#     print("Thanks for playing!")
-
-        
-
-# main()
+play_the_game()

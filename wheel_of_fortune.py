@@ -1,13 +1,5 @@
 import random
 
-# create wheel of fortune game
-# computer will randomly choose from a [] of words/must use .lower
-# display number of letters in word for user
-# for players turn, 1 guess per turn 
-# create while loop for player's turn 
-# if letter is guessed correctly, print letter
-# elif, print "Wrong. Guess again"
-
 fileObject = open("words.txt", "r")
 lines = fileObject.readlines()
 words = [line[:-1] for line in lines]
@@ -15,6 +7,7 @@ words = [line[:-1] for line in lines]
 short_words = []
 medium_words = []
 long_words = []
+
 
 
 def intro():
@@ -28,23 +21,22 @@ def intro():
     print(line)
 
 
+def difficulty_choice():
+    user_choice = input("Choose a difficutly:  ENTER  1 for Easy, 2 for Normal, or 3 for Challenging:  ")
+    return user_choice
 
 for word in words:
     if len(word) == 4 or len(word) == 5:
         short_words.append(word)
-        # return short_words
+        
     elif len(word) == 6 or len(word) == 7:
         medium_words.append(word)
-        # return medium_words
+        
     elif len(word) >= 8:
         long_words.append(word)
-        # return long_words
+        
     else: 
         pass
-
-def difficulty_choice():
-    user_choice = input("Choose a difficutly:  ENTER  1 for Easy, 2 for Normal, or 3 for Challenging:  ")
-    return user_choice
 
 def game_mode_pick(difficulty_choice):
     if difficulty_choice == "1":
@@ -58,57 +50,94 @@ def game_mode_pick(difficulty_choice):
         input("Choose a difficutly:  ENTER  1 for Easy, 2 for Normal, or 3 for Challenging:  ")
 
 def pick_a_word():
-        word_bank = []
-        print(len(random.choice(medium_words)))
-        # return answer
-        # print(answer)
+    word = [difficulty_choice]
+    print(len(word))
+    
 
-def pick_mystery_word():
-        word_bank = medium_words
-        return random.choice(word_bank).lower()
-
-def split(word):
-    return list(word)
+def pick_mystery_word(difficulty):
+    word_bank = game_mode_pick(difficulty)
+    return random.choice(word_bank)
 
 
-intro()
-mystery_word = pick_mystery_word()
-choice = difficulty_choice()
+###########################################################################################
+
+def play(word):
+    word_completion = "_" * len(word)
+    guessed = False
+    guessed_letters = []
+    tries = 8
+    print("Let's play Wheel of Fortune!")
+    print(f' You have {tries} tries left')
+    print(word_completion)
+    print("\n")
+    while not guessed and tries > 0:
+        guess = input("You guessed: ").lower()
+        if len(guess) == 1 and guess.isalpha():
+           if guess in guessed_letters:
+               print("You have already guessed the letter", guess)
+           elif guess not in word:
+               print(guess, "is not in the word.")
+               tries -= 1
+               guessed_letters.append(guess)
+           else:
+               print("You are correct!", guess, "is in the word!")
+               guessed_letters.append(guess)
+               word_as_list = list(word_completion)
+               indices = [i for i, letter in enumerate(word) if letter == guess]
+               for index in indices:
+                   word_as_list[index] = guess
+               word_completion = "".join(word_as_list)
+               if "_" not in word_completion:
+                   guessed = True
+        elif len(guess) == len(word) and guess.alpha():
+            if guess in guessed_words:
+                print("You already guessed", guess)
+            elif guess != word:
+                print(guess, "is not in the word.")
+                tries -= 1
+                guessed_words.append(guess)
+            else:
+                guessed = True
+                word_completion = word
 
 
-print(mystery_word)
-pick_a_word()
-print(split(mystery_word))
+        else:
+            print("Please guess a single letter")
+        print(f' You have {tries} tries left')
+        print(word_completion)
+        print("\n")
+    if guessed:
+        print("You are the winner of this episode of Wheel of Fortune!")
+        print("")
+        pass
+    else:
+        print("Sorry, you ran out of tries. The word was " + word + ". Better luck next time.")
+        print()
+        pass
 
+#########################################################################################################
 
 def main():
+    intro()
+    choice = difficulty_choice()
+    mystery_word = pick_mystery_word(choice).lower()
     word = mystery_word
-    play(mystery_word)
-    pick_a_word()
     print(mystery_word)
-    pick_mystery_word(game_mode_pick(difficulty_choice))
-    while input("Play Again? (y/n) ").lower() == "y":
-        word = pick_a_word()
-        play(word)
+    play(mystery_word)
+    
+
+def play_the_game():
+    while True:
+        print("")
+        yes_no = input("Are you ready to play WHEEL OF FORTUNE?    yes or no?       ")
+        affirm = yes_no.lower()
+        if affirm == "yes":
+            main()
+        elif affirm == "no":    
+            print("Goodbye, have a goood day!")
+            break
+        else: 
+            continue
 
 
-def main():
-    word = pick_a_word()
-    play(word)
-    #pick_a_word()
-    pick_mystery_word()
-    while input("Play Again? (y/n) ").lower() == "y":
-        word = pick_a_word()
-        play(word)
- 
-
-
-
-
-
-
-
-
-
-
-
+play_the_game()
