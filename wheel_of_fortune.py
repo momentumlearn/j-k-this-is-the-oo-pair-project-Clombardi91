@@ -79,6 +79,27 @@ choice = difficulty_choice()
 print(mystery_word)
 pick_a_word()
 print(split(mystery_word))
+
+
+def main():
+    word = mystery_word
+    play(mystery_word)
+    pick_a_word()
+    print(mystery_word)
+    pick_mystery_word(game_mode_pick(difficulty_choice))
+    while input("Play Again? (y/n) ").lower() == "y":
+        word = pick_a_word()
+        play(word)
+
+
+def main():
+    word = pick_a_word()
+    play(word)
+    #pick_a_word()
+    pick_mystery_word()
+    while input("Play Again? (y/n) ").lower() == "y":
+        word = pick_a_word()
+        play(word)
  
 
 

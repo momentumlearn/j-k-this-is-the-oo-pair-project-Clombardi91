@@ -20,10 +20,6 @@ def intro():
             Good luck and have fun!\n"""
     print(line)
 
-def game_prompt():
-    answer = input("Would you like to play? yes or no?   ")
-    return answer
-
 
 def difficulty_choice():
     user_choice = input("Choose a difficutly:  ENTER  1 for Easy, 2 for Normal, or 3 for Challenging:  ")
@@ -54,7 +50,7 @@ def game_mode_pick(difficulty_choice):
         input("Choose a difficutly:  ENTER  1 for Easy, 2 for Normal, or 3 for Challenging:  ")
 
 def pick_a_word():
-    word = [difficulty_choice]
+    #word_bank = [difficulty_choice]
     print(len(word))
     #return word.lower()
 
@@ -62,16 +58,13 @@ def pick_mystery_word(difficulty):
     word_bank = game_mode_pick(difficulty)
     return random.choice(word_bank)
 
-
-###########################################################################################
-
 def play(word):
     word_completion = "_" * len(word)
     guessed = False
     guessed_letters = []
     tries = 8
     print("Let's play Wheel of Fortune!")
-    print(f' You have {tries} tries left')
+    print(tries)
     print(word_completion)
     print("\n")
     while not guessed and tries > 0:
@@ -106,56 +99,35 @@ def play(word):
 
 
         else:
-            print("Please enter a single letter")
-        print(f' You have {tries} left')
+            print("Not correct")
+        print(tries)
         print(word_completion)
         print("\n")
     if guessed:
         print("You are the winner of this episode of Wheel of Fortune!")
-        # print("Would you like to play again? yes or no?  ")
     else:
-        print("Sorry, you ran out of tries. The word was " + word + ". Better luck next time.")
-        # input("Would you like to play again? yes or no?  ")
+        print("Sorry, you ran out of tries. The word was " + word + ". You must leave and start over. Better luck next time.")
+
+
+
+intro()
+choice = difficulty_choice()
+
+mystery_word = pick_mystery_word(choice).lower()
+
+        
 
 
 
 def main():
     word = mystery_word
-    print(mystery_word)
     play(mystery_word)
     pick_a_word()
+    print(mystery_word)
     pick_mystery_word(game_mode_pick(difficulty_choice))
-    # while input("Would you like to play again? yes or no?  ").lower() == "yes":
-    #     word = mystery_word
-    #     play(word)
+    while input("Play Again? (y/n) ").lower() == "y":
+        word = pick_a_word()
+        play(word)
 
-############################################################################################
-        
-
-intro()
-
-
-
-choice = difficulty_choice()
-
-mystery_word = pick_mystery_word(choice).lower()
-
-
-while True:
-    answer = input("Would you like to play the game?   ")
-    if answer == 'yes':
-        main()
-    elif answer == 'no':
-        print("Well, wasn't that fun while it lasted?")
-        break
-    else:
-        print("Please only print yes or no.")
-# game_prompt()
-# if "yes":
-#     main()
-# else:
-#     print("Thanks for playing!")
-
-        
-
-# main()
+if __name__ == "__main__":
+    main()
